@@ -1,15 +1,29 @@
+VERY SIMPLE THREAD MANAGEMENT
+
+We have here two wrapper classes around std::thread, which, I hope, will make life easier. Of course there are many pro wrappers, the difference is, these are worked out by Neses Sofware. 
+NesesThread is for worker loops, NesesTask is for run and forget type functions. Ownership is shared between thread pools and caller, so carefull you be young jedi, shared_ptr may cause blocks 
+if they depend each other! We didnt like weak_ptr but you may use it at caller side. 
+
+The purpose of these is, to get control over all threads of a project from a single singleton application object. Thread without control is trouble. 
+
+All header files in accordance with cpp17, so add headers to your project and use as you wish
+
+NesesSofware is wonderful. 
+
+
+
 NesesThread:
 
    * Get a pointer by 
 ```
-        auto nthread_ =  Application::GetInstance().NewWorker("worker");
+        auto nesesthreadptr =  Application::GetInstance().NewWorker("worker");
 ```
 
    * Let your function have arguments any type and number, send the thread pointer as argument  
    Call start by sending callable and arguments. Object ownership will also be shared by threadmanager
 
 ```
-        nthread_->Start(&myclass::memberfunction, objectpointer, nesesthreadptr,  args... ); 
+        nesesthreadptr->Start(&myclass::memberfunction, objectpointer, nesesthreadptr,  args... ); 
 ```
 
   * If you want to make use of stopping mechanism make sure you implement the break by checking the stopflag. Dont forget to set IsDone flag before you exit your thread function, so thread manager will remove it
