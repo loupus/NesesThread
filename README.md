@@ -104,5 +104,6 @@ Then you can set stop whenever you like
         auto ret = future_.get();
 ```
 
+You may check sample usage at main.cpp
    
         
