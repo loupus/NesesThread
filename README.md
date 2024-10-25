@@ -12,23 +12,28 @@ NesesSofware is wonderful.
 
 
 
-NesesThread:
+**NesesThread:**
 
    * Get a pointer by 
-```
+
+  ```c++
         auto nesesthreadptr =  Application::GetInstance().NewWorker("worker");
-```
+  ```
+
 
    * Let your function have arguments any type and number, send the thread pointer as argument  
    Call start by sending callable and arguments. Object ownership will also be shared by threadmanager
 
-```
+
+```c++
         nesesthreadptr->Start(&myclass::memberfunction, objectpointer, nesesthreadptr,  args... ); 
 ```
 
+
   * If you want to make use of stopping mechanism make sure you implement the break by checking the stopflag. Dont forget to set IsDone flag before you exit your thread function, so thread manager will remove it
 
-```
+
+```c++
     ReturnValue SomeFunction(std::shared_ptr<NesesThread> nesesthreadptr)
     {
         while(true)
@@ -41,28 +46,33 @@ NesesThread:
         nesesthreadptr->SetIsDone(true);
     }
 ```
+
 Then you can set stop whenever you like
 
-```
+
+  ```c++
        nesesthreadptr.SetStopFlag(true);
-```
+  ```
 
 
-NesesTask:
 
-    *  Similar usage with NesesThread, except that, you set Callable and arguments on Set function and  you start running task by enqueuing
+**NesesTask:**
 
-    ```
+* Similar usage with NesesThread, except that, you set Callable and arguments on Set function and  you start running task by enqueuing
 
+   
+
+```c++
         auto nesestaskptr = Application::GetInstance().NewTask("mytask");
         nesestaskptr->Set(&myclass::memberfunction, objectpointer, taskp);
         Application::GetInstance().EnqueuTask(nesestaskptr);
+```
 
-    ```
+  
     
-    * NesesTask has also internal progress and completed callbacks. You can create and set these before you enqueue.
+* NesesTask has also internal progress and completed callbacks. You can create and set these before you enqueue.
 
-     ```
+```c++
          void onProgress(int p, std::string& str)
         {
             std::cout << str << " progress % " << p << std::endl;
@@ -81,15 +91,18 @@ NesesTask:
 
     nesestaskptr->cbProgress_ = cbProgress;
     nesestaskptr->cbCompleted_ = cbCompleted;
+```
        
-    ```
+  
 
-    * You can also get future from task pointer after you set it;
+* You can also get future from task pointer after you set it;
 
-    ```
+   
+```c++
         auto future_ = nesestaskptr.GetFuture();
         ...
         auto ret = future_.get();
+```
 
-     ```
+   
         
