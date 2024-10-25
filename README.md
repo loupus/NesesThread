@@ -47,10 +47,11 @@ Then you can set stop whenever you like
        nesesthreadptr.SetStopFlag(true);
 ```
 
-////////////////////////////////////////////////////////
 
 NesesTask:
-    * Similar usage with NesesThread, except that, you set Callable and arguments on Set function and  you start running task by enqueuing
+
+    *  Similar usage with NesesThread, except that, you set Callable and arguments on Set function and  you start running task by enqueuing
+
     ```
 
         auto nesestaskptr = Application::GetInstance().NewTask("mytask");
@@ -86,9 +87,9 @@ NesesTask:
     * You can also get future from task pointer after you set it;
 
     ```
-    auto future_ = nesestaskptr.GetFuture();
-    ...
-    auto ret = future_.get();
+        auto future_ = nesestaskptr.GetFuture();
+        ...
+        auto ret = future_.get();
 
      ```
         
